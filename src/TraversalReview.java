@@ -58,7 +58,7 @@ public class TraversalReview {
         int right = positiveSum(node.right);
         int left = positiveSum(node.left);
 
-        return node.data > 0 ? node.data + left + right: 0;
+        return node.data > 0 ? node.data + left + right : left + right;
     }
 
     /**
@@ -119,8 +119,11 @@ public class TraversalReview {
      * @return whether all child nodes have strictly greater values than the parents
      */
     public static boolean isIncreasing(TreeNode node) {
-        return false;
-    } 
+        if(node == null || (node.left == null && node.right == null)) return true;
+        if(node.left != null && node.left.data <= node.data) return false;
+        if(node.right != null && node.right.data <= node.data) return false;
+        return isIncreasing(node.left) && isIncreasing(node.right);
+    }
 
     /**
      * Returns whether every node in the tree has either 0 or 2 children.
